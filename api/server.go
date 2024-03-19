@@ -8,26 +8,28 @@ import (
 
 type Server interface {
 	GetTodo(context.Context, uuid.UUID) (*Todo, error)
-	GetTodos(context.Context, uuid.UUID) ([]*Todo, error)
+	GetTodos(context.Context, uuid.UUID) (*TodoList, error)
 	UpdateTitle(context.Context, *Todo, string) error
 	UpdateDescription(context.Context, *Todo, string) error
 	UpdateCompleted(context.Context, *Todo, bool) error
 	Delete(context.Context, *Todo) error
-	DeleteList(context.Context, []*Todo) error
+	DeleteList(context.Context, *TodoList) error
 }
 
 type TodoServer struct{ url string }
 
+// Accepts a URL
+// Returns a pointer to a new TodoServer{}
 func NewTodoServer(url string) *TodoServer { return &TodoServer{url: url} }
 
-/* Get a TODO item by UUID */
+// Accepts a context and the UUID of a Todo{} item
+// Returns a pointer to the todo item
 func GetTodo(ctx context.Context, id uuid.UUID) (*Todo, error) {
-	// SELECT * FROM todos WHERE id = id
 	return nil, nil
 }
 
-/* Get all TODO items by UUID */
-func GetTodos(ctx context.Context, id uuid.UUID) ([]*Todo, error) {
-	// SELECT * FROM todos WHERE id = id
+// Accepts a context and the UUID of a TodoList{}
+// Returns a pointer to the TodoList{}
+func GetTodos(ctx context.Context, id uuid.UUID) (*TodoList, error) {
 	return nil, nil
 }

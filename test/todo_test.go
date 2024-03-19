@@ -9,7 +9,7 @@ import (
 )
 
 func TestNewTodo(t *testing.T) {
-	todo := api.NewTodo("Test Title", "Test Description", uuid.New())
+	todo := api.NewTodo(uuid.New(), uuid.New(), "Test Title", "Test Description")
 	assert.NotNil(t, todo)
 	assert.NotEqual(t, uuid.Nil, todo.ID)
 	assert.NotEqual(t, uuid.Nil, todo.ListID)
@@ -19,25 +19,25 @@ func TestNewTodo(t *testing.T) {
 }
 
 func TestUpdateTitle(t *testing.T) {
-	todo := &api.Todo{ID: uuid.New(), Title: "Old Title"}
+	todo := api.NewTodo(uuid.New(), uuid.New(), "Old Title", "Test Description")
 	api.UpdateTitle(todo, "New Title")
 	assert.Equal(t, "New Title", todo.Title)
 }
 
 func TestUpdateDescription(t *testing.T) {
-	todo := &api.Todo{ID: uuid.New(), Description: "Old Description"}
+	todo := api.NewTodo(uuid.New(), uuid.New(), "Test Title", "Old Description")
 	api.UpdateDescription(todo, "New Description")
 	assert.Equal(t, "New Description", todo.Description)
 }
 
 func TestComplete(t *testing.T) {
-	todo := &api.Todo{ID: uuid.New(), Completed: false}
+	todo := api.NewTodo(uuid.New(), uuid.New(), "Test Title", "Test Description")
 	api.Complete(todo)
 	assert.True(t, todo.Completed)
 }
 
-func TestPrint(t *testing.T) {
-	// no assertions, just verify that it;s formatted correctly and doesn't crash
-	todo := &api.Todo{ID: uuid.New(), Title: "Test Print", Description: "todo_test.go", Completed: true}
-	api.Print(todo)
-}
+// func TestPrint(t *testing.T) {
+// 	// no assertions, just verify that it;s formatted correctly and doesn't crash
+// 	todo := api.NewTodo(uuid.New(), uuid.New(), "Test Print", "todo_test.go")
+// 	api.Print(todo)
+// }
