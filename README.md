@@ -13,7 +13,8 @@
 
 ```bash
 git clone https://github.com/ttamre/go.do.git
-make build
+make deps       # get dependencies
+make build      # build binaries
 ```
 
 <!-- USAGE -->
@@ -26,4 +27,3 @@ make build
 <!-- LICENSE -->
 <h2 style="font-family:monospace">License</h2>
 <p style="font-family:monospace">This project is licensed under the GNU v3 General Public License. For more information, see the <a href="LICENSE">LICENSE</a></p>
-```

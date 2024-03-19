@@ -9,7 +9,6 @@ import (
 )
 
 func TestNewTodoList(t *testing.T) {
-	// Test NewTodoList function
 	todoList := api.NewTodoList()
 	assert.NotNil(t, todoList)
 	assert.NotEqual(t, uuid.Nil, todoList.ID)
@@ -17,7 +16,6 @@ func TestNewTodoList(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	// Test Add function
 	todoList := api.NewTodoList()
 	item := &api.Todo{ID: uuid.New(), Title: "Test Title", Description: "Test Description", Completed: false}
 	api.Add(todoList, item)
@@ -26,7 +24,6 @@ func TestAdd(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	// Test Delete function
 	todoList := api.NewTodoList()
 	item := &api.Todo{ID: uuid.New(), Title: "Test Title", Description: "Test Description", Completed: false}
 	api.Add(todoList, item)
@@ -35,7 +32,7 @@ func TestDelete(t *testing.T) {
 }
 
 func TestPrintList(t *testing.T) {
-	// Test PrintList function (no assertions, just verify that it doesn't crash)
+	// no assertions, just verify that it's formatted correctly and doesn't crash
 	todoList := api.NewTodoList()
 	item := &api.Todo{ID: uuid.New(), Title: "Test Print", Description: "todo_list_test.go", Completed: false}
 	api.Add(todoList, item)
