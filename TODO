@@ -1,4 +1,14 @@
 ✅ Structs
-🚧 MondoDB connection
-❌ RESTful API connection
+🚧 Redis connection
 ❌ Frontend
+
+
+
+{
+    ID: {
+        TITLE       STRING
+        DESC        STRING
+        COMPLETED   STRING
+        CREATED_ON  BITMAP
+    }
+}

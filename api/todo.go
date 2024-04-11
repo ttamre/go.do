@@ -1,26 +1,25 @@
 package api
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 )
 
 type Todo struct {
 	ID          uuid.UUID
-	UserID      uuid.UUID
-	ListID      uuid.UUID
 	Title       string
 	Description string
+	CreatedOn   string
 	Completed   bool
 }
 
-func NewTodo(userID uuid.UUID, listID uuid.UUID, title string, description string) *Todo {
+func NewTodo(title string, description string) *Todo {
 	// INSERT INTO todos (id, list_id, title, description, completed) VALUES (uuid.New(), ListID, Title, Description, false)
 	return &Todo{
-		ID:          uuid.New(),
-		UserID:      userID,
-		ListID:      listID,
 		Title:       title,
 		Description: description,
+		CreatedOn:   time.Now().String(),
 		Completed:   false,
 	}
 }
@@ -35,11 +34,7 @@ func UpdateDescription(item *Todo, description string) {
 	item.Description = description
 }
 
-func Complete(item *Todo) {
+func UpdateCompletion(item *Todo) {
 	// UPDATE todos SET completed = true WHERE id = Item.ID
-	item.Completed = true
+	item.Completed = !item.Completed
 }
-
-// func Print(item *Todo) {
-// 	fmt.Printf("Title: %s\nDescription: %s\nCompleted: %t\n\n", item.Title, item.Description, item.Completed)
-// }
