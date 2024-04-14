@@ -6,7 +6,7 @@
 
 <!-- DESCRIPTION -->
 <h2 style="font-family:monospace">Description</h2>
-<p style="font-family:monospace">Go + AJAX + Redis implementation of a todo list web application</p>
+<p style="font-family:monospace">Go + Redis implementation of a todo list web application</p>
 
 <!-- INSTALLATION -->
 <h2 style="font-family:monospace">Installation</h2>
