@@ -1,26 +1,50 @@
 package api
 
 import (
+	"log"
+	"strconv"
 	"time"
 
 	"github.com/google/uuid"
 )
 
 type Todo struct {
-	ID          uuid.UUID
-	Title       string
-	Description string
-	CreatedOn   string
-	Completed   bool
+	ID          uuid.UUID `json:"id"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	CreatedOn   string    `json:"created_on"`
+	Completed   bool      `json:"completed"`
 }
 
 func NewTodo(title string, description string) *Todo {
-	// INSERT INTO todos (id, list_id, title, description, completed) VALUES (uuid.New(), ListID, Title, Description, false)
 	return &Todo{
+		ID:          uuid.New(),
 		Title:       title,
 		Description: description,
-		CreatedOn:   time.Now().String(),
+		CreatedOn:   time.Now().Format(time.RFC1123),
 		Completed:   false,
+	}
+}
+
+func NewTodoFromDB(id string, title string, description string, created_on string, completed string) *Todo {
+	// Parse strings into proper types
+	uuidType, err := uuid.Parse(id)
+	if err != nil {
+		log.Fatalf("Failed to parse UUID: %v", err)
+	}
+
+	completedBool, err := strconv.ParseBool(completed)
+	if err != nil {
+		log.Printf("Failed to parse completed: %v", err)
+		completedBool = false
+	}
+
+	return &Todo{
+		ID:          uuidType,
+		Title:       title,
+		Description: description,
+		CreatedOn:   created_on,
+		Completed:   completedBool,
 	}
 }
 

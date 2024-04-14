@@ -6,7 +6,7 @@
 
 <!-- DESCRIPTION -->
 <h2 style="font-family:monospace">Description</h2>
-<p style="font-family:monospace">TODO list implementation with user accounts via MongoDB and a REST API service</p>
+<p style="font-family:monospace">Go + AJAX + Redis implementation of a todo list web application</p>
 
 <!-- INSTALLATION -->
 <h2 style="font-family:monospace">Installation</h2>
