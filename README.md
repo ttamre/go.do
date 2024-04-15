@@ -17,6 +17,7 @@
 ```bash
 # 1) Install project
 git clone https://github.com/ttamre/go.do.git
+cd go.do
 
 # 2) Build docker image
 docker build -t go.do .
@@ -33,6 +34,7 @@ redis-server --port 5000 &
 
 # 3) Install project
 git clone https://github.com/ttamre/go.do.git
+cd go.do
 
 # 4) Build project
 make deps       # get dependencies
