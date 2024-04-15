@@ -1,6 +1,7 @@
 <h1 style="font-family:monospace">GO.DO</h1>
 <div style="padding-bottom:20px">
     <img src="https://img.shields.io/badge/go-1.22.0-blue" />
+    <img src="https://img.shields.io/badge/redis-7.2.4-red" />
     <img src="https://img.shields.io/badge/license-GPL%20v3-grey" />
 </div>
 
@@ -28,7 +29,7 @@ docker build -t go.do .
 # https://redis.io/downloads/
 
 # 2) Run redis server in background
-redis-server --port [PORT] &
+redis-server --port 5000 &
 
 # 3) Install project
 git clone https://github.com/ttamre/go.do.git
