@@ -1,0 +1,10 @@
+TODO
+
+✅ backend
+✅ database
+✅ frontend
+✅ docker
+❌ validation (client + server)
+❌ testing
+❌ github actions (git push -> docker push -> gcloud push)
+❌ gcloud

@@ -11,6 +11,18 @@
 <!-- INSTALLATION -->
 <h2 style="font-family:monospace">Installation</h2>
 
+<h4 style="font-family:monospace">Option 1: Docker</h4>
+
+```bash
+# 1) Install project
+git clone https://github.com/ttamre/go.do.git
+
+# 2) Build docker image
+docker build -t go.do .
+```
+
+<h4 style="font-family:monospace">Option 2: Makefile</h4>
+
 ```bash
 # 1) Install redis
 # https://redis.io/downloads/
@@ -30,7 +42,8 @@ make build      # build binaries
 <h2 style="font-family:monospace">Usage</h2>
 
 ```bash
-./bin/godo
+docker run -p 5000:5000 go.do   # Run docker build
+./bin/godo                      # Run makefile build
 ```
 
 <!-- LICENSE -->
