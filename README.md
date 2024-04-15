@@ -12,7 +12,16 @@
 <h2 style="font-family:monospace">Installation</h2>
 
 ```bash
+# 1) Install redis
+# https://redis.io/downloads/
+
+# 2) Run redis server in background
+redis-server --port [PORT] &
+
+# 3) Install project
 git clone https://github.com/ttamre/go.do.git
+
+# 4) Build project
 make deps       # get dependencies
 make build      # build binaries
 ```

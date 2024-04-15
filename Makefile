@@ -3,7 +3,7 @@ GOCMD 	= go
 GOBUILD = $(GOCMD) build
 GOCLEAN = $(GOCMD) clean
 GOTEST 	= $(GOCMD) test
-GOGET 	= $(GOCMD) get
+GODEPS 	= $(GOCMD) mod download
 
 # Filepaths
 TEST_FOLDER 	= test
@@ -38,4 +38,4 @@ test:
 
 # Install dependencies
 deps:
-	$(GOGET) -v ./...
+	$(GODEPS)
