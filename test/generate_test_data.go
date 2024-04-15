@@ -11,13 +11,13 @@ Contact: 	temtamre@gmail.com
 package main
 
 import (
-	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
-	"strconv"
+	"strings"
 
 	"github.com/redis/go-redis/v9"
 	"github.com/ttamre/go.do/api"
@@ -34,7 +34,6 @@ func main() {
 	flag.StringVar(&file, "f", "test_data.json", "test data (default: test_data.json)")
 
 	// Initialize context and database connection
-	ctx := context.Background()
 	rdb := redis.NewClient(&redis.Options{
 		Addr: fmt.Sprintf("%s:%d", url, db_port),
 	})
@@ -46,17 +45,14 @@ func main() {
 
 		// If we can't read the file, generate test data instead instead of giving up
 		for i := 1; i <= 10; i++ {
-			todo := api.NewTodo(fmt.Sprintf("Todo %d", i), fmt.Sprintf("Description for Todo %d", i))
-			err := rdb.HMSet(ctx, todo.ID.String(), map[string]interface{}{
-				"title":       todo.Title,
-				"description": todo.Description,
-				"created_on":  todo.CreatedOn,
-				"completed":   strconv.FormatBool(todo.Completed),
-			}).Err()
-
+			// Make a mock HTTP request to hold our form data
+			formData := fmt.Sprintf("title=Test %d&description=description %d", i, i)
+			req, err := http.NewRequest("POST", "http://localhost:5000/", strings.NewReader(formData))
 			if err != nil {
-				log.Fatalf("Failed to create test data: %v", err)
+				log.Fatalf("Failed to create mock HTTP request: %v", err)
 			}
+
+			api.AddTodo(rdb, req)
 		}
 		log.Println("Test data generated successfully")
 		return

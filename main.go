@@ -5,7 +5,6 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"strings"
 
 	"github.com/redis/go-redis/v9"
 	"github.com/ttamre/go.do/api"
@@ -52,7 +51,7 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 	// Adds new todo item to database
 	if r.Method == "POST" {
 		// TODO validate form data in helper function
-		api.NewTodo(rdb, r)
+		api.AddTodo(rdb, r)
 
 		// Redirect to main webpage
 		r.Method = "GET"
@@ -63,32 +62,28 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 
 /* Serves an individual + editable todo item webpage */
 func TodoIDHandler(w http.ResponseWriter, r *http.Request) {
-	// Get Todo ID from URL
-	params := strings.Split(r.URL.Path, "/")
-	id := params[len(params)-1]
-
 	// Update the todo item
 	if r.Method == "POST" {
 		// TODO server-side form data validation
 
 		// Update title
 		if r.FormValue("title") != "" {
-			api.UpdateTitle(rdb, r, id)
+			api.UpdateTitle(rdb, r)
 		}
 
 		// Update description
 		if r.FormValue("description") != "" {
-			api.UpdateDescription(rdb, r, id)
+			api.UpdateDescription(rdb, r)
 		}
 
 		// Update completion status
 		if r.FormValue("completed") != "" {
-			api.UpdateCompletion(rdb, r, id)
+			api.UpdateCompletion(rdb, r)
 		}
 	}
 
 	// Delete the todo item
 	if r.Method == "DELETE" {
-		api.DeleteTodo(rdb, r, id)
+		api.DeleteTodo(rdb, r)
 	}
 }
