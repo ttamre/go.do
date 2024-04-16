@@ -7,7 +7,10 @@
 
 <!-- DESCRIPTION -->
 <h2 style="font-family:monospace">Description</h2>
-<p style="font-family:monospace">Go + Redis implementation of a todo list web application</p>
+<p style="font-family:monospace">
+Go + Redis implementation of a todo list web application.<br>
+Lightning fast, lightweight, and designed with excellent memory management.
+</p>
 
 <!-- INSTALLATION -->
 <h2 style="font-family:monospace">Installation</h2>
@@ -45,8 +48,8 @@ make build      # build binaries
 <h2 style="font-family:monospace">Usage</h2>
 
 ```bash
-docker run -p 5000:5000 go.do   # Run docker build
-./bin/godo                      # Run makefile build
+docker run -p 5000:5000 go.do   # Run docker image
+./bin/godo                      # Run binary
 ```
 
 <!-- LICENSE -->
