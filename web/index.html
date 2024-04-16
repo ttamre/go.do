@@ -28,7 +28,8 @@
 
     <!-- JS
 	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+	<script src="web/index.js"></script>
 
 </head>
 
@@ -92,103 +93,14 @@
                     {{else}}
                         <td><input type="checkbox" id="checkbox:{{.ID}}" value="checkbox" onchange="completeTodo(`{{.ID}}`)"></td>
                     {{end}}
-                    <td id="title:{{.ID}}" contenteditable="true" onblur="updateTodo(`{{.ID}}`)">{{.Title}}</td>
-                    <td id="description:{{.ID}}" contenteditable="true" onblur="updateTodo(`{{.ID}}`)">{{.Description}}</td>
+                    <td id="title:{{.ID}}" contenteditable="true" onblur="updateTodo(`{{.ID}}`, 'title')">{{.Title}}</td>
+                    <td id="description:{{.ID}}" contenteditable="true" onblur="updateTodo(`{{.ID}}`, 'description')">{{.Description}}</td>
                     <td>{{.CreatedOn}}</td>
                     <td><button class="button" type="submit" onclick="deleteTodo(`{{.ID}}`)">Delete</button></td>
                 </tr>
             {{end}}
         </table>
     </container>
-
-    <script>
-        // Update todo item using the above contenteditable fields
-		function updateTodo(id) {
-            console.log('updateTodo', id)
-			// Validate form data client-side (will be validated server-side as well)
-			title = document.getElementById('title:' + id).innerText;
-			description = document.getElementById('description:' + id).innerText;
-			// validateForm(title, description)
-
-			// Convert HTML elements into a form data object
-			var formData = new FormData();
-			formData.append('id', id);
-			formData.append('title', title);
-			formData.append('description', description);
-
-			// Send form data via AJAX request
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "/todo/" + id, true);
-			xhr.onload = function () {
-				if (xhr.readyState == 4 && xhr.status == 200) {
-				console.log('POST form data success');
-				} else {
-					console.error("POST form data failed", xhr.status, xhr.statusText)
-				}
-			};
-			xhr.send(formData);
-			// window.location.href = "/";
-		}
-
-		// Delete todo item from database
-		function deleteTodo(id) {
-			var xhr = new XMLHttpRequest();
-			xhr.open("DELETE", "/todo/" + id, true);
-			xhr.onload = function () {
-				if (xhr.readyState == 4 && xhr.status == 200) {
-				console.log('DELETE success');
-				} else {
-					console.error("DELETE failed", xhr.status, xhr.statusText)
-				}
-			};
-			xhr.send();
-			window.location.href = "/";
-		}
-
-		// Client-side validation
-		function validateForm(title, description) {
-			// Define validation rules
-			const rules = {
-				title: {
-					required: true,
-					minLength: 1,
-					maxLength: 100,
-					message: 'Title is required'
-				},
-				description: {
-					required: false,
-					minLength: 1,
-				}
-			}
-
-			// Validate form data
-			const validationResult = validate({title: title, description: description}, rules);
-
-			if (validationResult) {
-				console.error(validationResult);
-				return false
-			}
-		}
-
-        // Update completion status of todo item asynchronously when checkbox is clicked
-        function completeTodo(id) {
-            // Convert HTML elements into a form data object
-            var formData = new FormData();
-			formData.append('completed', document.getElementById('checkbox:' + id).checked);
-
-			// Send form data via AJAX request
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "/todo/" + id, true);
-			xhr.onload = function () {
-				if (xhr.readyState == 4 && xhr.status == 200) {
-				console.log('POST checkbox data success');
-				} else {
-					console.error("POST checkbox data failed", xhr.status, xhr.statusText)
-				}
-			};
-			xhr.send(formData);
-        }
-    </script>
 
 </body>
 </html>
