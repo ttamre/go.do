@@ -15,7 +15,22 @@ COVERAGE_HTML 	= $(BUILD_FOLDER)/coverage.html
 
 
 # Default target
-default: clean build run
+default: clean deps build run
+
+# Clean target
+clean:
+	@$(GOCLEAN)
+	@rm -rf $(BUILD_FOLDER)
+
+# Install dependencies
+deps:
+	$(GODEPS)
+
+# Test target
+test:
+	@mkdir -p $(BUILD_FOLDER)
+	@$(GOTEST) ./$(TEST_FOLDER) -v -coverpkg=./$(COVER_PKG) -coverprofile=$(COVERAGE_OUT) ./...
+	@go tool cover -html=$(COVERAGE_OUT) -o $(COVERAGE_HTML)
 
 # Build target
 build:
@@ -24,18 +39,3 @@ build:
 # Built and run target
 run: build
 	@./$(BINARY_NAME)
-
-# Clean target
-clean:
-	@$(GOCLEAN)
-	@rm -rf $(BUILD_FOLDER)
-
-# Test target
-test:
-	@mkdir -p $(BUILD_FOLDER)
-	@$(GOTEST) ./$(TEST_FOLDER) -v -coverpkg=./$(COVER_PKG) -coverprofile=$(COVERAGE_OUT) ./...
-	@go tool cover -html=$(COVERAGE_OUT) -o $(COVERAGE_HTML)
-
-# Install dependencies
-deps:
-	$(GODEPS)

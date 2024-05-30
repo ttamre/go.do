@@ -12,6 +12,8 @@ Go + Redis implementation of a todo list web application.<br>
 Lightning fast, lightweight, and designed with excellent memory management.
 </p>
 
+
+
 <!-- INSTALLATION -->
 <h2 style="font-family:monospace">Installation</h2>
 

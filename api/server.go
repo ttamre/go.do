@@ -6,15 +6,17 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/microcosm-cc/bluemonday"
 	"github.com/redis/go-redis/v9"
 )
 
 var rdb *redis.Client
+var policy = bluemonday.UGCPolicy()
 
 type Config struct {
-	URL     string
-	PORT    int
-	DB_PORT int
+	Host       string // Server host
+	ListenAddr int    // Server port
+	RedisAddr  int    // Database port
 }
 
 /* Create a HTTP server that listens for requests based on config */
@@ -29,12 +31,12 @@ func Serve(config *Config) {
 
 	// Initialize database connection
 	rdb = redis.NewClient(&redis.Options{
-		Addr: fmt.Sprintf("%s:%d", config.URL, config.DB_PORT),
+		Addr: fmt.Sprintf("%s:%d", config.Host, config.RedisAddr),
 	})
 
 	// Start server
-	log.Printf("Listening on http://%s:%d...", config.URL, config.PORT)
-	http.ListenAndServe(fmt.Sprintf(":%d", config.PORT), nil)
+	log.Printf("Listening on http://%s:%d", config.Host, config.ListenAddr)
+	http.ListenAndServe(fmt.Sprintf(":%d", config.ListenAddr), nil)
 }
 
 /* Serves the main webpage with a list of todo items */
@@ -52,7 +54,11 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Adds new todo item to database
 	if r.Method == http.MethodPost {
-		// TODO validate form data in helper function
+		// Sanitize form data of HTML content
+		for key, val := range r.Form {
+			r.Form.Set(key, policy.Sanitize(val[0]))
+		}
+
 		AddTodo(rdb, r)
 
 		// Redirect to main webpage
@@ -66,7 +72,10 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 func TodoIDHandler(w http.ResponseWriter, r *http.Request) {
 	// Update the todo item
 	if r.Method == http.MethodPost {
-		// TODO server-side form data validation
+		// Sanitize form data of HTML content
+		for key, val := range r.Form {
+			r.Form.Set(key, policy.Sanitize(val[0]))
+		}
 
 		// Update title
 		if r.FormValue("title") != "" {

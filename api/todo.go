@@ -13,11 +13,11 @@ import (
 )
 
 type Todo struct {
-	ID          uuid.UUID `json:"id"`
-	Title       string    `json:"title"`
-	Description string    `json:"description"`
-	CreatedOn   string    `json:"created_on"`
-	Completed   bool      `json:"completed"`
+	ID          uuid.UUID
+	Title       string
+	Description string
+	CreatedOn   string
+	Completed   bool
 }
 
 /*
@@ -117,7 +117,6 @@ func AddTodo(rdb *redis.Client, r *http.Request) {
 	if err != nil {
 		log.Fatalf("Failed to create new todo: %v", err)
 	}
-
 	log.Println("Added new todo item to database")
 }
 
