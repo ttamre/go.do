@@ -1,9 +1,9 @@
 # Go commands
 GOCMD 	= go
-GOBUILD = $(GOCMD) build
 GOCLEAN = $(GOCMD) clean
-GOTEST 	= $(GOCMD) test
 GODEPS 	= $(GOCMD) mod download
+GOTEST 	= $(GOCMD) test
+GOBUILD = $(GOCMD) build
 
 # Filepaths
 TEST_FOLDER 	= test
@@ -36,6 +36,6 @@ test:
 build:
 	@CGO_ENABLED=0 $(GOBUILD) -o $(BINARY_NAME)
 
-# Built and run target
-run: build
+# Built and run binary
+run:
 	@./$(BINARY_NAME)
