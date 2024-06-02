@@ -35,7 +35,7 @@ docker build -t go.do .
 # https://redis.io/downloads/
 
 # 2) Run redis server in background
-redis-server --port 5000 &
+redis-server --port 5001 &
 
 # 3) Install project
 git clone https://github.com/ttamre/go.do.git
