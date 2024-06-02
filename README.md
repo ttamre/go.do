@@ -12,8 +12,6 @@ Go + Redis implementation of a todo list web application.<br>
 Lightning fast, lightweight, and designed with excellent memory management.
 </p>
 
-
-
 <!-- INSTALLATION -->
 <h2 style="font-family:monospace">Installation</h2>
 
@@ -34,24 +32,40 @@ docker build -t go.do .
 # 1) Install redis
 # https://redis.io/downloads/
 
-# 2) Run redis server in background
-redis-server --port 5000 &
-
-# 3) Install project
+# 2) Install project
 git clone https://github.com/ttamre/go.do.git
 cd go.do
 
-# 4) Build project
-make deps       # get dependencies
-make build      # build binaries
+# 3) Build project
+make
+
+# 4) Run redis server in background
+redis-server --port 5001 &
 ```
 
 <!-- USAGE -->
 <h2 style="font-family:monospace">Usage</h2>
 
+<h4 style="font-family:monospace">Option 1: Docker</h4>
+
 ```bash
-docker run -p 5000:5000 go.do   # Run docker image
-./bin/godo                      # Run binary
+# For more information on how to configure ports and other flags with `docker run`,
+# https://docs.docker.com/reference/cli/docker/container/run/#publish
+
+docker run -p 8080:5000 go.do   # Run docker image and expose it at http://localhost:5000
+```
+
+
+<h4 style="font-family:monospace">Option 2: Makefile</h4>
+
+```bash
+# Default values (exposed at http://localhost:5000)
+./bin/godo
+
+# Command line arguments
+#   listenAddr      port to serve website on  (default: 5000)
+#   redisAddr       port to serve database on (default: 5001)
+./bin/godo --listenAddr 5000 --redisAddr 5001
 ```
 
 <!-- LICENSE -->

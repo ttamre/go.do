@@ -15,7 +15,7 @@ COVERAGE_HTML 	= $(BUILD_FOLDER)/coverage.html
 
 
 # Default target
-default: clean deps build run
+default: clean deps build
 
 # Clean target
 clean:
@@ -24,7 +24,7 @@ clean:
 
 # Install dependencies
 deps:
-	$(GODEPS)
+	@$(GODEPS)
 
 # Test target
 test:
