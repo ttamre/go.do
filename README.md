@@ -38,9 +38,6 @@ cd go.do
 
 # 3) Build project
 make
-
-# 4) Run redis server in background
-redis-server --port 5001 &
 ```
 
 <!-- USAGE -->
@@ -52,17 +49,20 @@ redis-server --port 5001 &
 # For more information on how to configure ports and other flags with `docker run`,
 # https://docs.docker.com/reference/cli/docker/container/run/#publish
 
-docker run -p 8080:5000 go.do   # Run docker image and expose it at http://localhost:5000
+docker run -p 8080:5000 go.do   # Run docker image and expose it at http://localhost:8080
 ```
 
 
 <h4 style="font-family:monospace">Option 2: Makefile</h4>
 
 ```bash
-# Default values (exposed at http://localhost:5000)
+# 1) Run Redis server in background
+redis-server --port 5001 --daemonize yes
+
+# 2) Run app
 ./bin/godo
 
-# Command line arguments
+# Command line arguments (optional)
 #   listenAddr      port to serve website on  (default: 5000)
 #   redisAddr       port to serve database on (default: 5001)
 ./bin/godo --listenAddr 5000 --redisAddr 5001
